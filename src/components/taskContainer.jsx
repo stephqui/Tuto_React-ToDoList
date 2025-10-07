@@ -51,7 +51,7 @@ export const TaskContainer = () => {
         deleteTaskP={deleteTask}
         incompletedTasksP={incompletedTasks}
       />
-      <Footer />
+      <Footer completedTasksP={completedTasks} />
     </main>
   );
 };

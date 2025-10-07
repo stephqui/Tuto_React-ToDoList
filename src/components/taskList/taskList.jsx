@@ -18,14 +18,33 @@ export const TaskList = ({
     />
   ));
 
-  return (
-    <div className="box">
-      <h2 className={styles.title}>
-        Il te reste encore {incompletedTasksP} tâches à accomplir
-      </h2>
-      {tasksListP && tasksListP.length > 0 && (
-        <ul className={styles.container}>{tasksListMappe}</ul>
-      )}
-    </div>
-  );
+  if (tasksListP && tasksListP.length > 0) {
+    return (
+      <div className="box">
+        <h2 className={styles.title}>
+          {incompletedTasksP > 0 && (
+            <>
+              Il te reste encore{" "}
+              <span className="important">{incompletedTasksP}</span> tâches à
+              accomplir
+            </>
+          )}
+
+          {incompletedTasksP === 0 && (
+            <>Génial, tu as accompli toutes les tâches</>
+          )}
+        </h2>
+        {tasksListP && tasksListP.length > 0 && (
+          <ul className={styles.container}>{tasksListMappe}</ul>
+        )}
+      </div>
+    );
+  } else
+    return (
+      <div className="box">
+        <h2 className={styles.emptyState}>
+          Salut, tu n'as rien à faire. Profite de ton temps libre
+        </h2>
+      </div>
+    );
 };
