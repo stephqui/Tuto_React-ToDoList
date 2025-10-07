@@ -10,7 +10,7 @@ export const TaskContainer = () => {
 
   const addTask = (titleToAdd) => {
     const newTask = {
-      id: tasksList.length + 1,
+      id: tasksList.length ? tasksList[tasksList.length - 1].id + 1 : 1,
       title: titleToAdd,
       completed: false,
     };
