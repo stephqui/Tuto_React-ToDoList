@@ -6,40 +6,51 @@ import { TaskList } from "./taskList/taskList";
 
 // Ce composant est utilisé pour afficher l'intégralité de la fonctionalité de Tache.
 export const TaskContainer = () => {
-  const [taskList, setTaskList] = useState([
-    /*{
-      id: 1,
-      title: "Faire la vaisselle",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Sortir le chien",
-      completed: true,
-    },
-    {
-      id: 3,
-      title: "Sortir le chien",
-      completed: true,
-    },*/
-  ]);
-
-  console.log("taskList : >> ", taskList);
+  const [tasksList, setTasksList] = useState([]);
 
   const addTask = (titleToAdd) => {
     const newTask = {
-      id: taskList.length + 1,
+      id: tasksList.length + 1,
       title: titleToAdd,
       completed: false,
     };
-    setTaskList([...taskList, newTask]);
+    setTasksList([...tasksList, newTask]);
   };
+
+  const editTask = (id, completedValue) => {
+    setTasksList(
+      tasksList.map((task) =>
+        task.id === id ? { ...task, completed: completedValue } : task
+      )
+    );
+  };
+
+  const deleteTask = (id) => {
+    setTasksList(tasksList.filter((task) => task.id !== id));
+  };
+
+  //Tableau contenant les taches effectuées
+  const getTaskCounts = () => {
+    const completedTasks = tasksList.filter((task) => task.completed).length;
+    const incompletedTasks = tasksList.length - completedTasks;
+    return {
+      completedTasks,
+      incompletedTasks,
+    };
+  };
+
+  const { completedTasks, incompletedTasks } = getTaskCounts();
 
   return (
     <main>
       <Header />
       <TaskInput addATask={addTask} />
-      <TaskList />
+      <TaskList
+        tasksListP={tasksList}
+        editTaskP={editTask}
+        deleteTaskP={deleteTask}
+        incompletedTasksP={incompletedTasks}
+      />
       <Footer />
     </main>
   );

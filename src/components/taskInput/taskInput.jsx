@@ -11,10 +11,10 @@ export const TaskInput = ({ addATask }) => {
 
   const handleAddTask = (e) => {
     e.preventDefault();
-    if (taskTitle === "") {
+    if (taskTitle.trim()) {
+      addATask(taskTitle);
+      setTaskTitle("");
     }
-    addATask(taskTitle);
-    setTaskTitle("");
   };
 
   return (
